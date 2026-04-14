@@ -7,6 +7,7 @@ export default function App() {
   const [wordList, setWordList]       = useState([]);
   const [toast, setToast]             = useState(null);
   const [highlight, setHighlight]     = useState("");
+  const [highlightType, setHighlightType] = useState("");
   const [tab, setTab]                 = useState("add");
 
   const [addWord, setAddWord]         = useState("");
@@ -32,6 +33,7 @@ export default function App() {
         toast$(`Added "${res.word}"`);
         setWordList(p => [...p.filter(w => w.word !== res.word), { word: res.word, meaning: res.meaning }]);
         setHighlight(res.word);
+        setHighlightType("add");
         setTrieData(res.trie_snapshot);
         setAddWord(""); setAddMeaning("");
       } else {
@@ -47,11 +49,13 @@ export default function App() {
       const res = await Api.searchWord(searchWord.trim());
       setSearchResult(res);
       setHighlight(res.word);
+      setHighlightType("search");
       setTrieData(res.trie_snapshot);
       setAcResults([]);
     } catch {
       setSearchResult(null);
       setHighlight("");
+      setHighlightType("");
       toast$(`"${searchWord.trim()}" not found`, "error");
     }
   };
@@ -64,14 +68,14 @@ export default function App() {
       toast$(`Deleted "${deleteWord.trim()}"`);
       setWordList(p => p.filter(w => w.word !== deleteWord.trim().toLowerCase()));
       setTrieData(res.trie_snapshot);
-      setHighlight(""); setDeleteWord("");
+      setHighlight(""); setHighlightType(""); setDeleteWord("");
     } catch (err) { toast$(err.message, "error"); }
   };
 
   const handleClear = async () => {
     if (!window.confirm("Reset the entire dictionary?")) return;
     await Api.clearTrie();
-    setTrieData(null); setWordList([]); setHighlight("");
+    setTrieData(null); setWordList([]); setHighlight(""); setHighlightType("");
     toast$("Dictionary cleared");
   };
 
@@ -186,7 +190,7 @@ export default function App() {
                   <input className="input" placeholder="e.g. apple"
                     value={deleteWord} onChange={e => setDeleteWord(e.target.value)} />
                 </div>
-                <button className="btn btn-danger" type="submit">Remove word</button>
+                <button className="btn btn-danger" type="submit" style={{marginTop: 4}}>Remove word</button>
                 <div className="divider" />
                 <button type="button" className="btn btn-ghost" onClick={handleClear}>Reset dictionary</button>
               </form>
@@ -229,7 +233,7 @@ export default function App() {
               <span className="empty-sub">Add a word to visualize the structure</span>
             </div>
           ) : (
-            <TrieVisualization trieData={trieData} highlightWord={highlight} />
+            <TrieVisualization trieData={trieData} highlightWord={highlight} highlightType={highlightType} />
           )}
         </main>
       </div>

@@ -3,22 +3,22 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:       #08080f;
-  --surface:  #0f0f18;
-  --raised:   #16161f;
-  --border:   #1f1f2e;
-  --border-2: #2a2a3d;
+  --bg:       #f1f5f9;
+  --surface:  #f8fafc;
+  --raised:   #f1f5f9;
+  --border:   #e2e8f0;
+  --border-2: #cbd5e1;
 
-  --accent:   #7b6fff;
-  --accent-d: #6358e0;
-  --accent-g: rgba(123,111,255,0.08);
+  --accent:   #6366f1; /* Indigo to match the tree */
+  --accent-d: #4f46e5;
+  --accent-g: rgba(99, 102, 241, 0.1);
 
-  --red:      #e05757;
-  --green:    #4ade80;
+  --red:      #ef4444;
+  --green:    #10b981;
 
-  --t0: #f4f4f8;
-  --t1: #a0a0b8;
-  --t2: #585870;
+  --t0: #0f172a;
+  --t1: #475569;
+  --t2: #64748b;
 
   font-family: 'Inter', system-ui, sans-serif;
   color: var(--t0);
@@ -54,7 +54,7 @@ body { height: 100vh; overflow: hidden; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
 /* ── Layout ── */
-.layout { display: grid; grid-template-columns: 280px 1fr; flex: 1; overflow: hidden; }
+.layout { display: grid; grid-template-columns: 340px 1fr; flex: 1; overflow: hidden; }
 
 /* ── Sidebar ── */
 .sidebar {
@@ -63,8 +63,8 @@ body { height: 100vh; overflow: hidden; }
   display: flex; flex-direction: column;
   overflow: hidden;
 }
-.sidebar-top { padding: 20px; flex-shrink: 0; }
-.sidebar-scroll { padding: 0 20px 20px; overflow-y: auto; flex: 1; }
+.sidebar-top { padding: 24px; flex-shrink: 0; }
+.sidebar-scroll { padding: 0 24px 24px; overflow-y: auto; flex: 1; }
 
 /* ── Section label ── */
 .section-label {
@@ -90,38 +90,38 @@ body { height: 100vh; overflow: hidden; }
 .input {
   background: var(--raised);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 8px;
   color: var(--t0);
-  padding: 8px 10px;
-  font-size: 13px;
+  padding: 10px 14px;
+  font-size: 14px;
   font-family: inherit;
   width: 100%;
   transition: border-color .15s, box-shadow .15s;
 }
 .input::placeholder { color: var(--t2); }
 .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-g); }
-.textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+.textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
 
 /* ── Buttons ── */
 .btn {
-  padding: 8px 14px; border-radius: 6px;
-  font-weight: 500; font-size: 12px; font-family: inherit;
+  padding: 10px 16px; border-radius: 8px;
+  font-weight: 500; font-size: 13px; font-family: inherit;
   cursor: pointer; border: none; transition: all .15s; width: 100%;
 }
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-primary:hover { background: var(--accent-d); }
-.btn-danger { background: transparent; color: var(--red); border: 1px solid var(--border); }
-.btn-danger:hover { background: rgba(224,87,87,.08); border-color: var(--red); }
-.btn-ghost { background: transparent; color: var(--t1); border: 1px solid var(--border); }
-.btn-ghost:hover { background: var(--raised); color: var(--t0); }
+.btn-danger { background: transparent; color: var(--red); border: 1px solid var(--border-2); }
+.btn-danger:hover { background: rgba(239, 68, 68, 0.08); border-color: var(--red); }
+.btn-ghost { background: transparent; color: var(--t1); border: 1px solid var(--border-2); }
+.btn-ghost:hover { background: var(--raised); color: var(--t0); border-color: var(--t1); }
 
 /* ── Autocomplete ── */
 .ac-wrap { position: relative; }
 .ac-list {
   position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 50;
-  background: var(--raised); border: 1px solid var(--border-2);
+  background: var(--surface); border: 1px solid var(--border-2);
   border-radius: 6px; list-style: none; max-height: 180px; overflow-y: auto;
-  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
 }
 .ac-item {
   padding: 8px 10px; cursor: pointer; display: flex; align-items: center;
@@ -133,11 +133,11 @@ body { height: 100vh; overflow: hidden; }
 
 /* ── Result ── */
 .result-box {
-  background: var(--raised); border-left: 2px solid var(--green);
-  border-radius: 6px; padding: 10px 12px; margin-top: 4px;
+  background: var(--raised); border-left: 3px solid var(--green);
+  border-radius: 8px; padding: 14px 16px; margin-top: 8px;
 }
-.result-word { font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 3px; }
-.result-def { font-size: 12px; color: var(--t1); line-height: 1.5; }
+.result-word { font-size: 14px; font-weight: 600; color: var(--green); margin-bottom: 4px; }
+.result-def { font-size: 13px; color: var(--t1); line-height: 1.5; }
 
 /* ── Word list ── */
 .divider { height: 1px; background: var(--border); margin: 16px 0; }
@@ -157,9 +157,9 @@ body { height: 100vh; overflow: hidden; }
 .viz::before {
   content: '';
   position: absolute; inset: 0;
-  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
-  background-size: 28px 28px;
-  opacity: .5;
+  background-image: radial-gradient(circle, var(--border-2) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+  opacity: .35;
   pointer-events: none;
 }
 
@@ -175,13 +175,14 @@ body { height: 100vh; overflow: hidden; }
 /* ── Toast ── */
 .toast {
   position: fixed; bottom: 20px; right: 20px; z-index: 999;
-  padding: 10px 16px; border-radius: 6px; font-size: 12px; font-weight: 500;
+  padding: 12px 18px; border-radius: 8px; font-size: 13px; font-weight: 500;
   animation: fadeUp .2s ease; max-width: 280px;
   display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08); /* popup shadow */
 }
-.toast-success { background: var(--raised); border: 1px solid rgba(74,222,128,.25); color: var(--green); }
-.toast-error   { background: var(--raised); border: 1px solid rgba(224,87,87,.25); color: var(--red); }
-.toast-warn    { background: var(--raised); border: 1px solid rgba(251,191,36,.25); color: #fbbf24; }
+.toast-success { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--green); color: var(--t0); }
+.toast-error   { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--red); color: var(--t0); }
+.toast-warn    { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid #f59e0b; color: var(--t0); }
 @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
 /* ── Scrollbar ── */
