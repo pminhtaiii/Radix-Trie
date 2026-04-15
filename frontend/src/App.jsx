@@ -64,11 +64,14 @@ export default function App() {
     e.preventDefault();
     if (!deleteWord.trim()) return;
     try {
-      const res = await Api.deleteWord(deleteWord.trim());
-      toast$(`Deleted "${deleteWord.trim()}"`);
-      setWordList(p => p.filter(w => w.word !== deleteWord.trim().toLowerCase()));
+      const wordToDelete = deleteWord.trim().toLowerCase();
+      const res = await Api.deleteWord(wordToDelete);
+      toast$(`Deleted "${wordToDelete}"`);
+      setWordList(p => p.filter(w => w.word !== wordToDelete));
       setTrieData(res.trie_snapshot);
-      setHighlight(""); setHighlightType(""); setDeleteWord("");
+      setHighlight(wordToDelete); 
+      setHighlightType("delete"); 
+      setDeleteWord("");
     } catch (err) { toast$(err.message, "error"); }
   };
 

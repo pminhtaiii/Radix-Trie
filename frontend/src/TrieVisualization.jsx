@@ -9,10 +9,24 @@ export default function TrieVisualization({ trieData, highlightWord, highlightTy
 
   // Define colors based on action type
   const isAdd = highlightType === "add";
-  const hlColor = isAdd ? "#10b981" : "#8b5cf6"; // Emerald for add, Violet for search
-  const hlColorDark = isAdd ? "#059669" : "#7c3aed";
-  const hlColorText = isAdd ? "#047857" : "#6d28d9";
-  const hlColorBg = isAdd ? "rgba(16, 185, 129, 0.2)" : "rgba(139, 92, 246, 0.2)";
+  const isDelete = highlightType === "delete";
+  
+  let hlColor = "#8b5cf6"; // Violet for search
+  let hlColorDark = "#7c3aed";
+  let hlColorText = "#6d28d9";
+  let hlColorBg = "rgba(139, 92, 246, 0.2)";
+
+  if (isAdd) {
+    hlColor = "#10b981"; // Emerald
+    hlColorDark = "#059669";
+    hlColorText = "#047857";
+    hlColorBg = "rgba(16, 185, 129, 0.2)";
+  } else if (isDelete) {
+    hlColor = "#ef4444"; // Red for delete
+    hlColorDark = "#dc2626";
+    hlColorText = "#b91c1c";
+    hlColorBg = "rgba(239, 68, 68, 0.2)";
+  }
 
   useEffect(() => {
     if (!trieData || !svgRef.current) return;
