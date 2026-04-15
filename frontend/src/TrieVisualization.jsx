@@ -129,18 +129,6 @@ export default function TrieVisualization({ trieData, highlightWord, highlightTy
     // Helper: is this node a complete word?
     const isWord = d => d.data.attributes && Object.keys(d.data.attributes).length > 0;
 
-    // Optional: Outer glow / halo effect for complete words
-    node.filter(isWord)
-      .append("rect")
-      .attr("x", d => -(getNodeWidth(d) / 2 + 5))
-      .attr("y", -17)
-      .attr("width", d => getNodeWidth(d) + 10)
-      .attr("height", 34)
-      .attr("rx", 17)
-      .attr("fill", "none")
-      .attr("stroke", d => hlSet.has(d) ? hlColorBg : "rgba(226, 232, 240, 0.4)")
-      .attr("stroke-width", d => hlSet.has(d) ? 4 : 2);
-
     // Main node shape (Rounded Pill Shape)
     node.append("rect")
       .attr("class", "main-shape")
@@ -151,10 +139,10 @@ export default function TrieVisualization({ trieData, highlightWord, highlightTy
       .attr("rx", 14) // Pill shape curvature
       .attr("fill", d => {
         if (hlSet.has(d) && isWord(d)) return hlColor; // Highlight primary for highlighted words
-        if (hlSet.has(d))              return "#f1f5f9"; // Very light gray for highlighted path nodes
+        if (hlSet.has(d))              return "#cbd5e1"; // Light gray for highlighted path nodes
         if (isWord(d))                 return "#4f46e5"; // Indigo for normal word nodes
         if (d.data.name === "ROOT")    return "#ffffff"; // White for Root
-        return "#ffffff"; // White for standard nodes
+        return "#e2e8f0"; // Gray for standard prefix nodes
       })
       .attr("stroke", d => {
         if (hlSet.has(d) && isWord(d)) return hlColor; // Match background for a flat look
@@ -169,8 +157,7 @@ export default function TrieVisualization({ trieData, highlightWord, highlightTy
       .attr("x", d => -(getNodeWidth(d) / 2))
       .attr("y", -14)
       .attr("width", d => getNodeWidth(d))
-      .attr("height", 28)
-      .attr("box-shadow", "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)");
+      .attr("height", 28);
 
     // Text inside the pill (The Character String)
     node.append("text")
